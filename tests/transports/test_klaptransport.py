@@ -41,6 +41,7 @@ from kasa.transports.klaptransport import (
     KlapTransportV2,
     _sha256,
 )
+from kasa.transports.tpaptransport import TpapTransport
 
 from ..device_fixtures import device_iot, parametrize
 
@@ -82,7 +83,9 @@ class _mock_response:
     ],
     ids=("Exception", "ServerTimeoutError", "ServerDisconnectedError", "ClientOSError"),
 )
-@pytest.mark.parametrize("transport_class", [AesTransport, KlapTransport])
+@pytest.mark.parametrize(
+    "transport_class", [AesTransport, KlapTransport, TpapTransport]
+)
 @pytest.mark.parametrize("protocol_class", [IotProtocol, SmartProtocol])
 @pytest.mark.parametrize("retry_count", [1, 3, 5])
 async def test_protocol_retries_via_client_session(
@@ -115,7 +118,9 @@ async def test_protocol_retries_via_client_session(
     ],
     ids=("KasaException", "_RetryableError", "TimeoutError"),
 )
-@pytest.mark.parametrize("transport_class", [AesTransport, KlapTransport])
+@pytest.mark.parametrize(
+    "transport_class", [AesTransport, KlapTransport, TpapTransport]
+)
 @pytest.mark.parametrize("protocol_class", [IotProtocol, SmartProtocol])
 @pytest.mark.parametrize("retry_count", [1, 3, 5])
 async def test_protocol_retries_via_httpclient(
@@ -140,7 +145,9 @@ async def test_protocol_retries_via_httpclient(
     assert conn.call_count == expected_count
 
 
-@pytest.mark.parametrize("transport_class", [AesTransport, KlapTransport])
+@pytest.mark.parametrize(
+    "transport_class", [AesTransport, KlapTransport, TpapTransport]
+)
 @pytest.mark.parametrize("protocol_class", [IotProtocol, SmartProtocol])
 async def test_protocol_no_retry_on_connection_error(
     mocker: MockerFixture, protocol_class: type, transport_class: type
@@ -161,7 +168,9 @@ async def test_protocol_no_retry_on_connection_error(
     assert conn.call_count == 1
 
 
-@pytest.mark.parametrize("transport_class", [AesTransport, KlapTransport])
+@pytest.mark.parametrize(
+    "transport_class", [AesTransport, KlapTransport, TpapTransport]
+)
 @pytest.mark.parametrize("protocol_class", [IotProtocol, SmartProtocol])
 async def test_protocol_retry_recoverable_error(
     mocker: MockerFixture, protocol_class: type, transport_class: type
@@ -182,7 +191,9 @@ async def test_protocol_retry_recoverable_error(
     assert conn.call_count == 6
 
 
-@pytest.mark.parametrize("transport_class", [AesTransport, KlapTransport])
+@pytest.mark.parametrize(
+    "transport_class", [AesTransport, KlapTransport, TpapTransport]
+)
 @pytest.mark.parametrize("protocol_class", [IotProtocol, SmartProtocol])
 @pytest.mark.parametrize("retry_count", [1, 3, 5])
 async def test_protocol_reconnect(
