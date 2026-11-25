@@ -7,7 +7,15 @@
 使用本地 `tpap-custom` 的提交 `df229a7aae8d56f71e4dd85382e9b3b3377c9786`。
 依赖位于自定义集成的命名空间内，可与官方 `tplink` 并存。
 
-## 安装到树莓派
+## 从 Marketplace 安装
+
+1. 在 Pi 的 Home Assistant 中打开 **设置 → Marketplace → 从链接添加**。
+2. 输入 `https://github.com/lingchen4/python-kasa`。如果 Marketplace 询问类型，
+   选择 **Integration**，再安装 **TP-Link Smart Home (TPAP)**。
+3. 按提示重启 Pi 上的 Home Assistant，然后在 **设备与服务 → 添加集成**
+   搜索 **TP-Link Smart Home (TPAP)**。
+
+## 手动安装到树莓派
 
 1. 从 `ha-tplink-tpap` 分支打包集成，再把 ZIP 传到 Pi 的 SSH 用户主目录。已有安装 ZIP 时，可以直接运行第二条命令。
 
